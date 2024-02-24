@@ -34,19 +34,63 @@ class LinkedList {
   /** unshift(val): add new value to start of list. */
 
   unshift(val) {
-
+    let newNode = new Node(val);
+    if(this.head === null){
+      this.head = newNode;
+      return this.head;
+    } else{
+      newNode.next = this.head;
+      this.head = newNode;
+      return newNode;
+    }
   }
 
   /** pop(): return & remove last item. */
 
   pop() {
+    if(!this.head){
+      this.head = null
+      this.tail = null
+      return null;
+    }
+    // if only one node in the list
+    else if(!this.head.next){
+      let lastNode = this.head;
+      this.head = null;
+      this.tail = null;
+      return lastNode;
+    }
+    let previous = this.head;
+    let tail = this.head; 
 
+    while (tail.next){
+      previous = tail;
+      tail = tail.next;
+    }
+    previous.next = null;
+    this.tail = previous;
+
+    return tail;
   }
 
   /** shift(): return & remove first item. */
 
   shift() {
+    if (this.head){
+      let shiftedVal = this.head.val;
+      // Set head to the next node
+      this.head = this.head.next;
 
+      // If the list is now empty, set the tail to null
+         if (!this.head){
+          this.tail = null;
+        }
+    // Decrement the length of the list
+    this.length--;
+
+    return shiftedVal;
+    }
+    return null;
   }
 
   /** getAt(idx): get val at idx. */
